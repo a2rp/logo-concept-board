@@ -1,0 +1,12 @@
+.logoArtwork {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    place-items: center;
+
+    svg {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+}

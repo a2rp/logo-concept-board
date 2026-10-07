@@ -1,7 +1,9 @@
 import { useState } from "react";
 import BrandBrief from "./components/brandBrief/index.jsx";
+import LogoArtwork from "./components/logoArtwork/index.jsx";
 import SiteHeader from "./components/siteHeader/index.jsx";
 import { createConceptSet } from "./data/concepts.js";
+import { paletteOptions } from "./data/palettes.js";
 import styles from "./App.module.css";
 
 const initialBrand = {
@@ -53,12 +55,20 @@ const App = () => {
                     </div>
                     <div className={styles.directionsGrid}>
                         {directions.map((direction) => (
-                            <article
-                                className={styles.directionCard}
-                                key={direction.id}
-                            >
-                                <span>{direction.style}</span>
-                                <h3>{direction.name}</h3>
+                                <article
+                                    className={styles.directionCard}
+                                    key={direction.id}
+                                    style={{ backgroundColor: paletteOptions[0].paper }}
+                                >
+                                    <LogoArtwork
+                                        className={styles.cardArtwork}
+                                        concept={direction}
+                                        brand={brand}
+                                        palette={paletteOptions[0]}
+                                        typeStyle="modern"
+                                    />
+                                    <span>{direction.style}</span>
+                                    <h3>{direction.name}</h3>
                                 <p>{direction.description}</p>
                             </article>
                         ))}

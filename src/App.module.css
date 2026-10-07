@@ -75,14 +75,18 @@
     }
 
     .directionCard {
-        min-height: 140px;
+        min-height: 250px;
         padding: 18px;
         border: 1px solid var(--border);
         border-radius: 16px;
-        background: var(--surface);
+        color: #25232a;
+
+        .cardArtwork {
+            min-height: 132px;
+        }
 
         span {
-            color: var(--accent);
+            color: #66616c;
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.08em;
