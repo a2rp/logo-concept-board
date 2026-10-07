@@ -8,7 +8,11 @@ const BrandBrief = ({ brand, onBrandChange, onGenerate, buildCount }) => {
     };
 
     return (
-        <section className={styles.brief} id="brief" aria-labelledby="brief-title">
+        <section
+            className={styles.brief}
+            id="brief"
+            aria-labelledby="brief-title"
+        >
             <div className={styles.briefHeading}>
                 <div>
                     <h2 id="brief-title">Start with a short brief</h2>
@@ -64,7 +68,11 @@ const BrandBrief = ({ brand, onBrandChange, onGenerate, buildCount }) => {
                     disabled={!brand.name.trim()}
                 >
                     <LuSparkles aria-hidden="true" />
-                    <span>{buildCount === 0 ? "Build directions" : "Try another set"}</span>
+                    <span>
+                        {buildCount === 0
+                            ? "Build directions"
+                            : "Try another set"}
+                    </span>
                     <LuArrowRight aria-hidden="true" />
                 </button>
             </div>

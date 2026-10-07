@@ -30,16 +30,28 @@ const ConceptEditor = ({
     onCopy,
     onDownload,
 }) => {
-    const svgMarkup = buildLogoSvg({ concept, brand, palette, typeStyle, layout });
+    const svgMarkup = buildLogoSvg({
+        concept,
+        brand,
+        palette,
+        typeStyle,
+        layout,
+    });
 
     return (
-        <section className={styles.conceptEditor} id="refine" aria-labelledby="refine-title">
+        <section
+            className={styles.conceptEditor}
+            id="refine"
+            aria-labelledby="refine-title"
+        >
             <div className={styles.editorHeading}>
                 <div>
                     <p>Refine your pick</p>
                     <h2 id="refine-title">{concept.name}</h2>
                 </div>
-                <span className={styles.directionStyle}>{concept.style} direction</span>
+                <span className={styles.directionStyle}>
+                    {concept.style} direction
+                </span>
             </div>
 
             <div className={styles.editorLayout}>
@@ -62,14 +74,20 @@ const ConceptEditor = ({
                     </div>
                     <details className={styles.codeDetails}>
                         <summary>View SVG markup</summary>
-                        <pre><code>{svgMarkup}</code></pre>
+                        <pre>
+                            <code>{svgMarkup}</code>
+                        </pre>
                     </details>
                 </div>
 
                 <div className={styles.controlsColumn}>
                     <div className={styles.controlGroup}>
                         <h3>Color palette</h3>
-                        <div className={styles.paletteOptions} role="group" aria-label="Logo color palette">
+                        <div
+                            className={styles.paletteOptions}
+                            role="group"
+                            aria-label="Logo color palette"
+                        >
                             {paletteOptions.map((option) => (
                                 <button
                                     className={styles.paletteButton}
@@ -79,7 +97,11 @@ const ConceptEditor = ({
                                     aria-label={`Use the ${option.name} palette`}
                                     onClick={() => onPaletteChange(option.id)}
                                 >
-                                    <span style={{ backgroundColor: option.accent }} />
+                                    <span
+                                        style={{
+                                            backgroundColor: option.accent,
+                                        }}
+                                    />
                                     <span>{option.name}</span>
                                 </button>
                             ))}
@@ -88,16 +110,26 @@ const ConceptEditor = ({
 
                     <div className={styles.controlGroup}>
                         <h3>Type style</h3>
-                        <div className={styles.typeOptions} role="group" aria-label="Logo type style">
+                        <div
+                            className={styles.typeOptions}
+                            role="group"
+                            aria-label="Logo type style"
+                        >
                             {typeStyles.map((option) => (
                                 <button
-                                    className={typeStyle === option.id ? styles.typeButtonActive : styles.typeButton}
+                                    className={
+                                        typeStyle === option.id
+                                            ? styles.typeButtonActive
+                                            : styles.typeButton
+                                    }
                                     key={option.id}
                                     type="button"
                                     aria-pressed={typeStyle === option.id}
                                     onClick={() => onTypeStyleChange(option.id)}
                                 >
-                                    <span className={`${styles.typeSample} ${styles[option.id]}`}>
+                                    <span
+                                        className={`${styles.typeSample} ${styles[option.id]}`}
+                                    >
                                         {option.sample}
                                     </span>
                                     <span>{option.label}</span>
@@ -108,10 +140,18 @@ const ConceptEditor = ({
 
                     <div className={styles.controlGroup}>
                         <h3>Logo lockup</h3>
-                        <div className={styles.layoutOptions} role="group" aria-label="Logo layout">
+                        <div
+                            className={styles.layoutOptions}
+                            role="group"
+                            aria-label="Logo layout"
+                        >
                             {layouts.map((option) => (
                                 <button
-                                    className={layout === option.id ? styles.layoutButtonActive : styles.layoutButton}
+                                    className={
+                                        layout === option.id
+                                            ? styles.layoutButtonActive
+                                            : styles.layoutButton
+                                    }
                                     key={option.id}
                                     type="button"
                                     aria-pressed={layout === option.id}
@@ -138,15 +178,26 @@ const ConceptEditor = ({
                             {isSaved ? "Saved to board" : "Save direction"}
                         </button>
                         <div className={styles.exportActions}>
-                            <button type="button" onClick={() => onCopy(svgMarkup)}>
+                            <button
+                                type="button"
+                                onClick={() => onCopy(svgMarkup)}
+                            >
                                 <LuCopy aria-hidden="true" /> Copy SVG
                             </button>
-                            <button type="button" onClick={() => onDownload(svgMarkup)}>
+                            <button
+                                type="button"
+                                onClick={() => onDownload(svgMarkup)}
+                            >
                                 <LuDownload aria-hidden="true" /> Download
                             </button>
                         </div>
-                        <p className={styles.statusMessage} role="status" aria-live="polite">
-                            {status || "Changes update the preview immediately."}
+                        <p
+                            className={styles.statusMessage}
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {status ||
+                                "Changes update the preview immediately."}
                         </p>
                     </div>
                 </div>

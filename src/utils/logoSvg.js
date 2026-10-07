@@ -23,7 +23,9 @@ const getMark = (shape, brand, palette) => {
         case "ridge":
             return `<path d="m7 65 22-34 12 17 10-14 20 31H7Z" fill="${accent}" stroke="${ink}" stroke-linejoin="round" stroke-width="3"/><path d="M7 65h64" stroke="${ink}" stroke-linecap="round" stroke-width="3"/><circle cx="56" cy="20" r="7" fill="${ink}"/>`;
         case "monogram": {
-            const initial = escapeXml((brand.name || "M").trim().charAt(0).toUpperCase());
+            const initial = escapeXml(
+                (brand.name || "M").trim().charAt(0).toUpperCase(),
+            );
             return `<rect x="7" y="7" width="62" height="62" rx="18" fill="${accent}"/><text x="38" y="52" fill="${ink}" font-family="${fontFamilies.editorial}" font-size="43" font-weight="700" text-anchor="middle">${initial}</text>`;
         }
         case "orbit":
@@ -57,7 +59,10 @@ export const buildLogoSvg = ({
     const font = fontFamilies[typeStyle] ?? fontFamilies.modern;
     const wordmarkSize = Math.min(
         isStacked ? 28 : 36,
-        Math.max(isStacked ? 13 : 16, (isStacked ? 270 : 355) / (name.length * 0.62)),
+        Math.max(
+            isStacked ? 13 : 16,
+            (isStacked ? 270 : 355) / (name.length * 0.62),
+        ),
     );
     const wordmarkX = isStacked ? 160 : 130;
     const wordmarkY = isStacked ? 147 : 74;

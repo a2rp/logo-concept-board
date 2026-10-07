@@ -52,16 +52,14 @@ const SiteHeader = ({ savedCount = 0 }) => {
                 </a>
 
                 <nav
-                    className={menuOpen ? styles.navigationOpen : styles.navigation}
+                    className={
+                        menuOpen ? styles.navigationOpen : styles.navigation
+                    }
                     id="header-navigation"
                     aria-label="Main navigation"
                 >
                     {navigation.map((item) => (
-                        <a
-                            key={item.href}
-                            href={item.href}
-                            onClick={closeMenu}
-                        >
+                        <a key={item.href} href={item.href} onClick={closeMenu}>
                             {item.label}
                             {item.label === "Saved" && savedCount > 0 && (
                                 <span className={styles.savedCount}>
@@ -86,7 +84,9 @@ const SiteHeader = ({ savedCount = 0 }) => {
                 <button
                     className={styles.menuButton}
                     type="button"
-                    aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+                    aria-label={
+                        menuOpen ? "Close navigation" : "Open navigation"
+                    }
                     aria-expanded={menuOpen}
                     aria-controls="header-navigation"
                     onClick={() => setMenuOpen((open) => !open)}

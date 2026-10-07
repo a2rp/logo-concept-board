@@ -21,7 +21,9 @@ const initialBrand = {
 
 const readSavedConcepts = () => {
     try {
-        const parsed = JSON.parse(localStorage.getItem(savedStorageKey) || "[]");
+        const parsed = JSON.parse(
+            localStorage.getItem(savedStorageKey) || "[]",
+        );
 
         return Array.isArray(parsed)
             ? parsed.filter(
@@ -30,7 +32,9 @@ const readSavedConcepts = () => {
                       typeof item.key === "string" &&
                       getConceptById(item.conceptId) &&
                       typeof item.brand?.name === "string" &&
-                      paletteOptions.some((palette) => palette.id === item.paletteId),
+                      paletteOptions.some(
+                          (palette) => palette.id === item.paletteId,
+                      ),
               )
             : [];
     } catch {
@@ -72,14 +76,18 @@ const App = () => {
         setLayout(nextDirections[0].layout);
         setBuildCount(nextBuildCount);
         setEditorStatus("");
-        document.getElementById("directions")?.scrollIntoView({ behavior: "smooth" });
+        document
+            .getElementById("directions")
+            ?.scrollIntoView({ behavior: "smooth" });
     };
 
     const selectDirection = (direction) => {
         setSelectedDirectionId(direction.id);
         setLayout(direction.layout);
         setEditorStatus("");
-        document.getElementById("refine")?.scrollIntoView({ behavior: "smooth" });
+        document
+            .getElementById("refine")
+            ?.scrollIntoView({ behavior: "smooth" });
     };
 
     const currentDirectionIsSaved = savedItems.some(
@@ -115,12 +123,16 @@ const App = () => {
             await navigator.clipboard.writeText(svgMarkup);
             setEditorStatus("SVG markup copied to the clipboard.");
         } catch {
-            setEditorStatus("Clipboard unavailable. Use View SVG markup to copy it.");
+            setEditorStatus(
+                "Clipboard unavailable. Use View SVG markup to copy it.",
+            );
         }
     };
 
     const downloadSvg = (svgMarkup) => {
-        const file = new Blob([svgMarkup], { type: "image/svg+xml;charset=utf-8" });
+        const file = new Blob([svgMarkup], {
+            type: "image/svg+xml;charset=utf-8",
+        });
         const fileUrl = URL.createObjectURL(file);
         const link = document.createElement("a");
 
@@ -143,7 +155,9 @@ const App = () => {
         setTypeStyle(item.typeStyle);
         setLayout(item.layout);
         setEditorStatus("Saved direction restored to the board.");
-        document.getElementById("refine")?.scrollIntoView({ behavior: "smooth" });
+        document
+            .getElementById("refine")
+            ?.scrollIntoView({ behavior: "smooth" });
     };
 
     const removeSavedDirection = () => {
@@ -166,8 +180,8 @@ const App = () => {
                     <p className={styles.label}>Logo concept board</p>
                     <h1>Give this brand a shape.</h1>
                     <p className={styles.description}>
-                        Start with a few details. Compare four directions, refine
-                        the right one, and take the SVG with you.
+                        Start with a few details. Compare four directions,
+                        refine the right one, and take the SVG with you.
                     </p>
                 </section>
                 <BrandBrief
@@ -199,7 +213,9 @@ const App = () => {
                                         ? layout
                                         : undefined
                                 }
-                                isSelected={selectedDirectionId === direction.id}
+                                isSelected={
+                                    selectedDirectionId === direction.id
+                                }
                                 onSelect={() => selectDirection(direction)}
                             />
                         ))}
@@ -234,9 +250,26 @@ const App = () => {
                         </div>
                     </div>
                     <ol className={styles.guideSteps}>
-                        <li><strong>01</strong><span>Enter the brand name, tagline, and industry.</span></li>
-                        <li><strong>02</strong><span>Compare four different logo directions and choose one to refine.</span></li>
-                        <li><strong>03</strong><span>Adjust color, type, or lockup, then save or export the SVG.</span></li>
+                        <li>
+                            <strong>01</strong>
+                            <span>
+                                Enter the brand name, tagline, and industry.
+                            </span>
+                        </li>
+                        <li>
+                            <strong>02</strong>
+                            <span>
+                                Compare four different logo directions and
+                                choose one to refine.
+                            </span>
+                        </li>
+                        <li>
+                            <strong>03</strong>
+                            <span>
+                                Adjust color, type, or lockup, then save or
+                                export the SVG.
+                            </span>
+                        </li>
                     </ol>
                 </section>
             </main>

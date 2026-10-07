@@ -5,7 +5,11 @@ import LogoArtwork from "../logoArtwork/index.jsx";
 import styles from "./styles.module.css";
 
 const SavedConcepts = ({ items, onApply, onRequestRemove }) => (
-    <section className={styles.savedConcepts} id="saved" aria-labelledby="saved-title">
+    <section
+        className={styles.savedConcepts}
+        id="saved"
+        aria-labelledby="saved-title"
+    >
         <div className={styles.sectionHeading}>
             <div>
                 <p>On this device</p>
@@ -48,10 +52,16 @@ const SavedConcepts = ({ items, onApply, onRequestRemove }) => (
                             <div className={styles.savedCardBody}>
                                 <div className={styles.savedCardText}>
                                     <strong>{item.brand.name}</strong>
-                                    <span>{concept.name} · {concept.style}</span>
+                                    <span>
+                                        {concept.name} · {concept.style}
+                                    </span>
                                 </div>
                                 <span className={styles.paletteLabel}>
-                                    <span style={{ backgroundColor: palette.accent }} />
+                                    <span
+                                        style={{
+                                            backgroundColor: palette.accent,
+                                        }}
+                                    />
                                     {palette.name}
                                 </span>
                                 <div className={styles.savedActions}>
@@ -60,7 +70,8 @@ const SavedConcepts = ({ items, onApply, onRequestRemove }) => (
                                         type="button"
                                         onClick={() => onApply(item)}
                                     >
-                                        Apply to board <LuArrowUpRight aria-hidden="true" />
+                                        Apply to board{" "}
+                                        <LuArrowUpRight aria-hidden="true" />
                                     </button>
                                     <button
                                         className={styles.removeButton}

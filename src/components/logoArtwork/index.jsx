@@ -9,7 +9,13 @@ const LogoArtwork = ({
     layout = concept.layout,
     className = "",
 }) => {
-    const svgMarkup = buildLogoSvg({ concept, brand, palette, typeStyle, layout });
+    const svgMarkup = buildLogoSvg({
+        concept,
+        brand,
+        palette,
+        typeStyle,
+        layout,
+    });
     const imageLabel = `${brand.name || "Your Brand"}, ${concept.name} direction`;
 
     return (
