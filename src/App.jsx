@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import BackToTop from "./components/backToTop/index.jsx";
 import BrandBrief from "./components/brandBrief/index.jsx";
 import ConceptCard from "./components/conceptCard/index.jsx";
 import ConceptEditor from "./components/conceptEditor/index.jsx";
 import ConfirmationDialog from "./components/confirmationDialog/index.jsx";
 import SavedConcepts from "./components/savedConcepts/index.jsx";
 import SiteHeader from "./components/siteHeader/index.jsx";
+import SiteFooter from "./components/siteFooter/index.jsx";
 import { createConceptSet, getConceptById } from "./data/concepts.js";
 import { getPaletteById, paletteOptions } from "./data/palettes.js";
 import { makeSvgFilename } from "./utils/logoSvg.js";
@@ -236,6 +238,8 @@ const App = () => {
                     </ol>
                 </section>
             </main>
+            <SiteFooter />
+            <BackToTop />
             {pendingRemoval && (
                 <ConfirmationDialog
                     title="Remove saved direction?"
