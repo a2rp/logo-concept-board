@@ -57,15 +57,19 @@ export const buildLogoSvg = ({
     const font = fontFamilies[typeStyle] ?? fontFamilies.modern;
     const wordmarkSize = Math.min(
         isStacked ? 28 : 36,
-        Math.max(15, (isStacked ? 280 : 355) / name.length),
+        Math.max(isStacked ? 13 : 16, (isStacked ? 270 : 355) / (name.length * 0.62)),
     );
     const wordmarkX = isStacked ? 160 : 130;
     const wordmarkY = isStacked ? 147 : 74;
     const taglineX = isStacked ? 160 : 132;
     const taglineY = isStacked ? 174 : 102;
     const textAnchor = isStacked ? "middle" : "start";
+    const taglineSize = Math.min(
+        isStacked ? 12 : 14,
+        Math.max(8, (isStacked ? 270 : 375) / (tagline.length * 0.58 || 1)),
+    );
     const taglineMarkup = tagline
-        ? `<text x="${taglineX}" y="${taglineY}" fill="${palette.ink}" font-family="${fontFamilies.modern}" font-size="${isStacked ? 12 : 14}" letter-spacing="0.4" opacity="0.72" text-anchor="${textAnchor}">${tagline}</text>`
+        ? `<text x="${taglineX}" y="${taglineY}" fill="${palette.ink}" font-family="${fontFamilies.modern}" font-size="${taglineSize}" letter-spacing="0.4" opacity="0.72" text-anchor="${textAnchor}">${tagline}</text>`
         : "";
 
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}"><title>${title}</title><g transform="${shapeTransform}">${getMark(concept.shape, brand, palette)}</g><text x="${wordmarkX}" y="${wordmarkY}" fill="${palette.ink}" font-family="${font}" font-size="${wordmarkSize}" font-weight="700" letter-spacing="-1.2" text-anchor="${textAnchor}">${name}</text>${taglineMarkup}</svg>`;

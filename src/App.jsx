@@ -72,12 +72,14 @@ const App = () => {
         setLayout(nextDirections[0].layout);
         setBuildCount(nextBuildCount);
         setEditorStatus("");
+        document.getElementById("directions")?.scrollIntoView({ behavior: "smooth" });
     };
 
     const selectDirection = (direction) => {
         setSelectedDirectionId(direction.id);
         setLayout(direction.layout);
         setEditorStatus("");
+        document.getElementById("refine")?.scrollIntoView({ behavior: "smooth" });
     };
 
     const currentDirectionIsSaved = savedItems.some(

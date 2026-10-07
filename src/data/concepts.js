@@ -66,25 +66,24 @@ const directionTemplates = {
 };
 
 const conceptsByIndustry = {
-    Outdoor: ["compass", "leaf", "ridge", "monogram"],
-    "Food & drink": ["bloom", "arch", "monogram", "signal"],
-    Wellness: ["bloom", "orbit", "leaf", "arch"],
-    Technology: ["signal", "orbit", "ridge", "monogram"],
-    "Creative studio": ["signal", "bloom", "arch", "orbit"],
-    "Home & living": ["arch", "leaf", "monogram", "compass"],
+    Outdoor: ["compass", "leaf", "ridge", "monogram", "orbit", "bloom", "arch", "signal"],
+    "Food & drink": ["bloom", "arch", "monogram", "signal", "leaf", "orbit", "ridge", "compass"],
+    Wellness: ["bloom", "orbit", "leaf", "arch", "compass", "monogram", "ridge", "signal"],
+    Technology: ["signal", "orbit", "ridge", "monogram", "compass", "arch", "bloom", "leaf"],
+    "Creative studio": ["signal", "bloom", "arch", "orbit", "leaf", "compass", "monogram", "ridge"],
+    "Home & living": ["arch", "leaf", "monogram", "compass", "bloom", "ridge", "orbit", "signal"],
 };
 
 export const industryOptions = Object.keys(conceptsByIndustry);
 
 export const createConceptSet = (industry, revision = 0) => {
     const conceptIds = conceptsByIndustry[industry] ?? conceptsByIndustry.Outdoor;
-    const offset = revision % conceptIds.length;
-    const rotatedIds = [
-        ...conceptIds.slice(offset),
-        ...conceptIds.slice(0, offset),
-    ];
+    const start = (revision * 4) % conceptIds.length;
+    const nextIds = Array.from({ length: 4 }, (_, index) =>
+        conceptIds[(start + index) % conceptIds.length],
+    );
 
-    return rotatedIds.map((id, index) => ({
+    return nextIds.map((id, index) => ({
         ...directionTemplates[id],
         order: index + 1,
     }));
