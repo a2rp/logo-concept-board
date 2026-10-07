@@ -1,0 +1,198 @@
+.siteHeader {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 8%);
+    background: rgb(23 21 28 / 94%);
+    backdrop-filter: blur(18px);
+
+    .headerInner {
+        display: flex;
+        width: min(100% - 48px, 1240px);
+        min-height: 76px;
+        margin-inline: auto;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+    .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .brandMark {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: var(--accent);
+        color: #17151c;
+        font-size: 21px;
+        place-items: center;
+    }
+
+    .brandName {
+        display: grid;
+        line-height: 1.1;
+
+        strong {
+            color: var(--ink);
+            font-size: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        small {
+            margin-top: 5px;
+            color: var(--ink-muted);
+            font-size: 10px;
+            letter-spacing: 0.04em;
+        }
+    }
+
+    .navigation,
+    .navigationOpen {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        a {
+            display: inline-flex;
+            min-height: 40px;
+            padding-inline: 13px;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: #c2bdc8;
+            font-size: 13px;
+            font-weight: 600;
+            transition:
+                border-color 150ms ease,
+                background-color 150ms ease,
+                color 150ms ease;
+
+            &:hover,
+            &:focus-visible {
+                border-color: var(--border);
+                background: var(--surface);
+                color: var(--ink);
+            }
+        }
+    }
+
+    .savedCount {
+        display: grid;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #17151c;
+        font-size: 10px;
+        place-items: center;
+    }
+
+    .repositoryLink {
+        display: inline-flex;
+        min-height: 42px;
+        padding-inline: 14px;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        border: 1px solid #56525d;
+        border-radius: 12px;
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 650;
+        transition:
+            border-color 150ms ease,
+            box-shadow 150ms ease;
+
+        svg:first-child {
+            font-size: 17px;
+        }
+
+        svg:last-child {
+            color: var(--ink-muted);
+            font-size: 13px;
+        }
+
+        &:hover,
+        &:focus-visible {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgb(215 250 98 / 12%);
+        }
+    }
+
+    .menuButton {
+        display: none;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--ink);
+        font-size: 19px;
+    }
+
+    @media (max-width: 760px) {
+        .headerInner {
+            width: min(100% - 32px, 1240px);
+            min-height: 68px;
+            gap: 9px;
+        }
+
+        .navigation,
+        .navigationOpen {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 16px;
+            width: min(260px, calc(100vw - 32px));
+            padding: 8px;
+            flex-direction: column;
+            align-items: stretch;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: #24222b;
+            box-shadow: var(--shadow);
+
+            a {
+                justify-content: space-between;
+            }
+        }
+
+        .navigation {
+            display: none;
+        }
+
+        .navigationOpen {
+            display: flex;
+        }
+
+        .repositoryLink {
+            min-height: 38px;
+            padding-inline: 10px;
+            font-size: 11px;
+        }
+
+        .menuButton {
+            display: inline-flex;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .brandName small {
+            display: none;
+        }
+
+        .repositoryLink {
+            gap: 5px;
+        }
+    }
+}

@@ -32,10 +32,30 @@
         color: var(--ink-muted);
     }
 
+    .section {
+        min-height: 240px;
+        padding-block: 64px;
+        border-top: 1px solid var(--border);
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+    }
+
+    main {
+        padding-top: 152px;
+    }
+
     @media (max-width: 600px) {
         .pageContent {
             width: min(100% - 32px, 1240px);
-            padding-block: 48px;
+            padding-block: 108px 48px;
+        }
+
+        .section {
+            min-height: 180px;
+            padding-block: 44px;
         }
     }
 }
