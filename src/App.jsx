@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import BrandBrief from "./components/brandBrief/index.jsx";
 import ConceptCard from "./components/conceptCard/index.jsx";
 import ConceptEditor from "./components/conceptEditor/index.jsx";
+import ConfirmationDialog from "./components/confirmationDialog/index.jsx";
+import SavedConcepts from "./components/savedConcepts/index.jsx";
 import SiteHeader from "./components/siteHeader/index.jsx";
 import { createConceptSet, getConceptById } from "./data/concepts.js";
 import { getPaletteById, paletteOptions } from "./data/palettes.js";
@@ -46,6 +48,7 @@ const App = () => {
     const [layout, setLayout] = useState("horizontal");
     const [savedItems, setSavedItems] = useState(readSavedConcepts);
     const [editorStatus, setEditorStatus] = useState("");
+    const [pendingRemoval, setPendingRemoval] = useState(null);
     const palette = getPaletteById(paletteId);
     const selectedDirection =
         directions.find((direction) => direction.id === selectedDirectionId) ??
@@ -139,6 +142,18 @@ const App = () => {
         document.getElementById("refine")?.scrollIntoView({ behavior: "smooth" });
     };
 
+    const removeSavedDirection = () => {
+        if (!pendingRemoval) {
+            return;
+        }
+
+        setSavedItems((currentItems) =>
+            currentItems.filter((item) => item.key !== pendingRemoval.key),
+        );
+        setEditorStatus("Saved direction removed from this device.");
+        setPendingRemoval(null);
+    };
+
     return (
         <div className={styles.appShell}>
             <SiteHeader savedCount={savedItems.length} />
@@ -202,49 +217,11 @@ const App = () => {
                         onDownload={downloadSvg}
                     />
                 </section>
-                <section className={styles.section} id="saved">
-                    <div className={styles.sectionHeading}>
-                        <div>
-                            <p className={styles.label}>On this device</p>
-                            <h2>Saved concepts</h2>
-                        </div>
-                        <span className={styles.directionCount}>
-                            {savedItems.length} saved
-                        </span>
-                    </div>
-                    {savedItems.length === 0 ? (
-                        <p className={styles.emptySaved}>
-                            Save a direction you like and it will be waiting here.
-                        </p>
-                    ) : (
-                        <div className={styles.savedList}>
-                            {savedItems.map((item) => {
-                                const concept = getConceptById(item.conceptId);
-                                const itemPalette = getPaletteById(item.paletteId);
-
-                                return (
-                                    <article className={styles.savedItem} key={item.key}>
-                                        <div>
-                                            <strong>{item.brand.name}</strong>
-                                            <span>{concept.name} · {concept.style}</span>
-                                        </div>
-                                        <button
-                                            type="button"
-                                            onClick={() => applySavedDirection(item)}
-                                        >
-                                            Apply
-                                        </button>
-                                        <span
-                                            className={styles.savedSwatch}
-                                            style={{ backgroundColor: itemPalette.accent }}
-                                            aria-label={`${itemPalette.name} palette`}
-                                        />
-                                    </article>
-                                );
-                            })}
-                        </div>
-                    )}
-                </section>
+                <SavedConcepts
+                    items={savedItems}
+                    onApply={applySavedDirection}
+                    onRequestRemove={setPendingRemoval}
+                />
                 <section className={styles.section} id="guide">
                     <div className={styles.sectionHeading}>
                         <div>
@@ -259,6 +236,14 @@ const App = () => {
                     </ol>
                 </section>
             </main>
+            {pendingRemoval && (
+                <ConfirmationDialog
+                    title="Remove saved direction?"
+                    description={`Remove ${pendingRemoval.brand.name}'s ${getConceptById(pendingRemoval.conceptId)?.name ?? "logo"} direction from saved concepts on this device?`}
+                    onConfirm={removeSavedDirection}
+                    onCancel={() => setPendingRemoval(null)}
+                />
+            )}
         </div>
     );
 };

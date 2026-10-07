@@ -1,0 +1,96 @@
+.backdrop {
+    position: fixed;
+    z-index: 50;
+    inset: 0;
+    display: grid;
+    padding: 20px;
+    background: rgb(8 7 11 / 72%);
+    backdrop-filter: blur(5px);
+    place-items: center;
+}
+
+.dialog {
+    position: relative;
+    width: min(100%, 440px);
+    padding: 28px;
+    border: 1px solid #55515d;
+    border-radius: 20px;
+    background: #25232d;
+    box-shadow: 0 24px 90px rgb(0 0 0 / 42%);
+
+    h2 {
+        max-width: 340px;
+        color: #fbf8f0;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+    }
+
+    p {
+        margin-top: 10px;
+        color: #b9b4c0;
+        font-size: 13px;
+        line-height: 1.55;
+    }
+}
+
+.closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #504c58;
+    border-radius: 10px;
+    color: #d4cfda;
+    font-size: 16px;
+    place-items: center;
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgb(215 250 98 / 10%);
+    }
+}
+
+.actions {
+    display: flex;
+    margin-top: 26px;
+    justify-content: flex-end;
+    gap: 9px;
+
+    button {
+        min-height: 42px;
+        padding-inline: 15px;
+        border: 1px solid #58535f;
+        border-radius: 11px;
+        font-size: 12px;
+        font-weight: 700;
+        transition:
+            border-color 150ms ease,
+            box-shadow 150ms ease;
+
+        &:hover,
+        &:focus-visible {
+            border-color: #d7fa62;
+            box-shadow: 0 0 0 3px rgb(215 250 98 / 10%);
+        }
+    }
+}
+
+.cancelButton {
+    color: #f7f2e8;
+}
+
+.confirmButton {
+    border-color: #ff796d !important;
+    background: #ff796d;
+    color: #241412;
+
+    &:hover,
+    &:focus-visible {
+        border-color: #ffada5 !important;
+        box-shadow: 0 0 0 3px rgb(255 121 109 / 14%) !important;
+    }
+}
