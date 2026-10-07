@@ -1,0 +1,134 @@
+.conceptCard,
+.selectedCard {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #e3ddd2;
+    border-radius: 18px;
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+
+    &:hover {
+        border-color: #938c7d;
+        box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+    }
+
+    .cardHeading {
+        display: flex;
+        min-height: 26px;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .conceptNumber {
+        color: #827c73;
+        font-family: var(--font-mono);
+        font-size: 10px;
+    }
+
+    .styleName {
+        color: #56514b;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .selectedLabel {
+        display: inline-flex;
+        margin-left: auto;
+        align-items: center;
+        gap: 4px;
+        color: #42532c;
+        font-size: 10px;
+        font-weight: 700;
+
+        svg {
+            font-size: 13px;
+        }
+    }
+
+    .selectButton {
+        display: block;
+        width: 100%;
+        margin-top: 13px;
+        text-align: left;
+
+        &:focus-visible {
+            outline: 3px solid #25232a;
+            outline-offset: 3px;
+        }
+    }
+
+    .artworkFrame {
+        display: grid;
+        min-height: 156px;
+        padding: 12px 4px;
+        border: 1px solid rgb(37 35 42 / 10%);
+        border-radius: 12px;
+        background: rgb(255 255 255 / 46%);
+        place-items: center;
+    }
+
+    .cardCopy {
+        display: flex;
+        margin-top: 14px;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+
+        strong,
+        small {
+            display: block;
+        }
+
+        strong {
+            font-size: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        small {
+            max-width: 245px;
+            margin-top: 5px;
+            color: #655f58;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+    }
+
+    .refineLabel {
+        display: inline-flex;
+        padding-top: 3px;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        color: #514c43;
+        font-size: 10px;
+        font-weight: 700;
+
+        svg {
+            font-size: 13px;
+        }
+    }
+}
+
+.selectedCard {
+    border-color: #d7fa62;
+    box-shadow: 0 0 0 2px rgb(215 250 98 / 24%);
+}
+
+@media (max-width: 600px) {
+    .conceptCard,
+    .selectedCard {
+        padding: 12px;
+
+        .artworkFrame {
+            min-height: 130px;
+            padding-inline: 0;
+        }
+
+        .cardCopy {
+            flex-direction: column;
+        }
+    }
+}

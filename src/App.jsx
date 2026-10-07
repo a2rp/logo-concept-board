@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BrandBrief from "./components/brandBrief/index.jsx";
-import LogoArtwork from "./components/logoArtwork/index.jsx";
+import ConceptCard from "./components/conceptCard/index.jsx";
 import SiteHeader from "./components/siteHeader/index.jsx";
 import { createConceptSet } from "./data/concepts.js";
 import { paletteOptions } from "./data/palettes.js";
@@ -18,10 +18,13 @@ const App = () => {
     const [directions, setDirections] = useState(
         createConceptSet(initialBrand.industry),
     );
+    const [selectedDirectionId, setSelectedDirectionId] = useState("compass");
 
     const buildDirections = () => {
         const nextBuildCount = buildCount + 1;
-        setDirections(createConceptSet(brand.industry, nextBuildCount));
+        const nextDirections = createConceptSet(brand.industry, nextBuildCount);
+        setDirections(nextDirections);
+        setSelectedDirectionId(nextDirections[0].id);
         setBuildCount(nextBuildCount);
     };
 
@@ -55,22 +58,15 @@ const App = () => {
                     </div>
                     <div className={styles.directionsGrid}>
                         {directions.map((direction) => (
-                                <article
-                                    className={styles.directionCard}
+                            <ConceptCard
                                     key={direction.id}
-                                    style={{ backgroundColor: paletteOptions[0].paper }}
-                                >
-                                    <LogoArtwork
-                                        className={styles.cardArtwork}
-                                        concept={direction}
-                                        brand={brand}
-                                        palette={paletteOptions[0]}
-                                        typeStyle="modern"
-                                    />
-                                    <span>{direction.style}</span>
-                                    <h3>{direction.name}</h3>
-                                <p>{direction.description}</p>
-                            </article>
+                                concept={direction}
+                                brand={brand}
+                                palette={paletteOptions[0]}
+                                typeStyle="modern"
+                                isSelected={selectedDirectionId === direction.id}
+                                onSelect={() => setSelectedDirectionId(direction.id)}
+                            />
                         ))}
                     </div>
                 </section>

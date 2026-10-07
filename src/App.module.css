@@ -74,38 +74,6 @@
         gap: 14px;
     }
 
-    .directionCard {
-        min-height: 250px;
-        padding: 18px;
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        color: #25232a;
-
-        .cardArtwork {
-            min-height: 132px;
-        }
-
-        span {
-            color: #66616c;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        h3 {
-            margin-top: 14px;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        p {
-            margin-top: 5px;
-            color: var(--ink-muted);
-            font-size: 12px;
-        }
-    }
-
     @media (max-width: 600px) {
         .pageContent {
             width: min(100% - 32px, 1240px);
