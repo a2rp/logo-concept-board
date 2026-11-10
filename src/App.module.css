@@ -67,6 +67,16 @@
         font-size: 11px;
     }
 
+    .storageNotice {
+        margin-top: 28px;
+        padding: 12px 16px;
+        border: 1px solid #8a6332;
+        border-radius: 10px;
+        background: #211b12;
+        color: #f2d49c;
+        font-size: 13px;
+    }
+
     .directionsGrid {
         display: grid;
         margin-top: 24px;

@@ -38,7 +38,7 @@ SVG files have a transparent background. Brand names and taglines remain SVG tex
 Use a current Node.js version, then run these commands from this folder:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BackToTop from "./components/backToTop/index.jsx";
 import BrandBrief from "./components/brandBrief/index.jsx";
 import ConceptCard from "./components/conceptCard/index.jsx";
@@ -42,6 +42,15 @@ const readSavedConcepts = () => {
     }
 };
 
+const canAccessSavedStorage = () => {
+    try {
+        window.localStorage.getItem(savedStorageKey);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
 const App = () => {
     const [brand, setBrand] = useState(initialBrand);
     const [buildCount, setBuildCount] = useState(0);
@@ -53,6 +62,9 @@ const App = () => {
     const [typeStyle, setTypeStyle] = useState("modern");
     const [layout, setLayout] = useState("horizontal");
     const [savedItems, setSavedItems] = useState(readSavedConcepts);
+    const [storageUnavailable, setStorageUnavailable] = useState(
+        () => !canAccessSavedStorage(),
+    );
     const [editorStatus, setEditorStatus] = useState("");
     const [pendingRemoval, setPendingRemoval] = useState(null);
     const palette = getPaletteById(paletteId);
@@ -60,13 +72,14 @@ const App = () => {
         directions.find((direction) => direction.id === selectedDirectionId) ??
         directions[0];
 
-    useEffect(() => {
+    const persistSavedItems = (items) => {
         try {
-            localStorage.setItem(savedStorageKey, JSON.stringify(savedItems));
+            localStorage.setItem(savedStorageKey, JSON.stringify(items));
+            setStorageUnavailable(false);
         } catch {
-            return;
+            setStorageUnavailable(true);
         }
-    }, [savedItems]);
+    };
 
     const buildDirections = () => {
         const nextBuildCount = buildCount + 1;
@@ -114,7 +127,9 @@ const App = () => {
             layout,
         };
 
-        setSavedItems((currentItems) => [savedDirection, ...currentItems]);
+        const nextItems = [savedDirection, ...savedItems];
+        setSavedItems(nextItems);
+        persistSavedItems(nextItems);
         setEditorStatus("Direction saved on this device.");
     };
 
@@ -147,9 +162,17 @@ const App = () => {
 
     const applySavedDirection = (item) => {
         const concept = getConceptById(item.conceptId);
+        const nextDirections = createConceptSet(item.brand.industry);
+
+        if (!nextDirections.some((direction) => direction.id === concept.id)) {
+            nextDirections[nextDirections.length - 1] = {
+                ...concept,
+                order: nextDirections.length,
+            };
+        }
 
         setBrand(item.brand);
-        setDirections(createConceptSet(item.brand.industry));
+        setDirections(nextDirections);
         setSelectedDirectionId(concept.id);
         setPaletteId(item.paletteId);
         setTypeStyle(item.typeStyle);
@@ -165,9 +188,11 @@ const App = () => {
             return;
         }
 
-        setSavedItems((currentItems) =>
-            currentItems.filter((item) => item.key !== pendingRemoval.key),
+        const nextItems = savedItems.filter(
+            (item) => item.key !== pendingRemoval.key,
         );
+        setSavedItems(nextItems);
+        persistSavedItems(nextItems);
         setEditorStatus("Saved direction removed from this device.");
         setPendingRemoval(null);
     };
@@ -237,6 +262,12 @@ const App = () => {
                         onDownload={downloadSvg}
                     />
                 </section>
+                {storageUnavailable && (
+                    <p className={styles.storageNotice} role="status">
+                        Browser storage is unavailable. Saved concepts will
+                        only last until this page closes.
+                    </p>
+                )}
                 <SavedConcepts
                     items={savedItems}
                     onApply={applySavedDirection}
